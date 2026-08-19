@@ -15,7 +15,8 @@ MarkdownファイルからPowerPoint（`.pptx`）スライドを自動生成す�
 
 
 ### 基本実行
-カレントディレクトリにある `slides.md` と `template.pptx` を使って `output.pptx` を生成します。
+カレントディレクトリにある `slides.md` を使って `output.pptx` を生成します。
+※カレントディレクトリに `template.pptx` が存在しない場合は、GitHubから自動的にデフォルトテンプレートがダウンロードされます。
 
 ```bash
 uvx --from git+https://github.com/he1se1/HintBookMaker hintbookmaker
@@ -40,7 +41,7 @@ uvx --from git+https://github.com/he1se1/HintBookMaker hintbookmaker --help
 | オプション | デフォルト値 | 説明 |
 | :--- | :--- | :--- |
 | `-i`, `--input` | `slides.md` | 入力となるMarkdownファイルのパス |
-| `-t`, `--template` | `template.pptx` | ベースとなるPowerPointテンプレートファイルのパス |
+| `-t`, `--template` | `template.pptx` | ベースとなるPowerPointテンプレートファイルのパス（未配置時はGitHubから自動取得） |
 | `-o`, `--output` | `output.pptx` | 生成されるPowerPointファイルの出力先パス |
 | `--layout` | `1` | テンプレート内で使用するスライドレイアウトのインデックス番号 |
 | `-h`, `--help` | - | ヘルプメッセージを表示して終了 |

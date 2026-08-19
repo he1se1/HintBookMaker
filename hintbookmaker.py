@@ -84,6 +84,31 @@ def generate_pptx(slides_data, template_path: str, output_path: str, layout_inde
     print(f"作成完了: {output_path} ({len(slides_data)}枚のスライド)")
 
 
+GITHUB_TEMPLATE_URL = "https://raw.githubusercontent.com/he1se1/HintBookMaker/main/template.pptx"
+
+
+def ensure_template(template_path: str) -> str:
+    """指定されたテンプレートが存在しない場合、デフォルトであればGitHubから自動取得します。"""
+    path = Path(template_path)
+    if path.exists():
+        return str(path)
+
+    # デフォルトのtemplate.pptxが見つからない場合、GitHubから自動ダウンロード
+    if template_path == DEFAULT_TEMPLATE:
+        print(f"テンプレート '{DEFAULT_TEMPLATE}' が見つからないため、GitHubからダウンロードします...")
+        try:
+            import urllib.request
+            urllib.request.urlretrieve(GITHUB_TEMPLATE_URL, template_path)
+            print(f"ダウンロード完了: {template_path}")
+            return template_path
+        except Exception as e:
+            print(f"エラー: テンプレートのダウンロードに失敗しました: {e}", file=sys.stderr)
+            sys.exit(1)
+
+    print(f"エラー: テンプレートファイルが見つかりません: {template_path}", file=sys.stderr)
+    sys.exit(1)
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="MarkdownからPowerPoint（.pptx）スライドを自動生成するツール"
@@ -99,7 +124,7 @@ def main():
         "-t",
         "--template",
         default=DEFAULT_TEMPLATE,
-        help=f"PowerPointテンプレートファイルパス (デフォルト: {DEFAULT_TEMPLATE})",
+        help=f"PowerPointテンプレートファイルパス (デフォルト: {DEFAULT_TEMPLATE}。存在しない場合はGitHubから自動取得)",
     )
     parser.add_argument(
         "-o",
@@ -120,12 +145,10 @@ def main():
         print(f"エラー: Markdownファイルが見つかりません: {args.input}", file=sys.stderr)
         sys.exit(1)
 
-    if not Path(args.template).exists():
-        print(f"エラー: テンプレートファイルが見つかりません: {args.template}", file=sys.stderr)
-        sys.exit(1)
+    template_path = ensure_template(args.template)
 
     data = parse_markdown(args.input)
-    generate_pptx(data, args.template, args.output, layout_index=args.layout)
+    generate_pptx(data, template_path, args.output, layout_index=args.layout)
 
 
 if __name__ == "__main__":
