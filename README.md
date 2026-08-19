@@ -13,14 +13,12 @@ MarkdownファイルからPowerPoint（`.pptx`）スライドを自動生成す�
 
 リポジトリをクローンすることなく、`uvx` でGitHubリポジトリを指定して直接実行できます。
 
-> **Note**
-> `<USERNAME>` 部分はご自身のGitHubユーザー名または組織名に置き換えてください。
 
 ### 基本実行
 カレントディレクトリにある `slides.md` と `template.pptx` を使って `output.pptx` を生成します。
 
 ```bash
-uvx --from git+https://github.com/<USERNAME>/HintBookMaker hintbookmaker
+uvx --from git+https://github.com/he1se1/HintBookMaker hintbookmaker
 ```
 
 ### オプション指定
@@ -28,13 +26,13 @@ uvx --from git+https://github.com/<USERNAME>/HintBookMaker hintbookmaker
 
 ```bash
 # Markdownファイルを指定
-uvx --from git+https://github.com/<USERNAME>/HintBookMaker hintbookmaker -i slides.sample.md
+uvx --from git+https://github.com/he1se1/HintBookMaker hintbookmaker -i slides.sample.md
 
 # テンプレートや出力先を指定
-uvx --from git+https://github.com/<USERNAME>/HintBookMaker hintbookmaker -i input.md -t custom_template.pptx -o result.pptx
+uvx --from git+https://github.com/he1se1/HintBookMaker hintbookmaker -i input.md -t custom_template.pptx -o result.pptx
 
 # ヘルプ確認
-uvx --from git+https://github.com/<USERNAME>/HintBookMaker hintbookmaker --help
+uvx --from git+https://github.com/he1se1/HintBookMaker hintbookmaker --help
 ```
 
 ### コマンドライン引数・オプション一覧
@@ -54,7 +52,7 @@ uvx --from git+https://github.com/<USERNAME>/HintBookMaker hintbookmaker --help
 
 ```bash
 # クローン
-git clone https://github.com/<USERNAME>/HintBookMaker.git
+git clone https://github.com/he1se1/HintBookMaker.git
 cd HintBookMaker
 
 # 依存関係の同期
